@@ -1,4 +1,5 @@
-<h3 >💳 <strong>Kredi Risk Analizi – Makine Öğrenmesi</strong></h3>
+<h1 style="font-size:25px; font-weight:bold;">💳 Kredi Risk Analizi – Makine Öğrenmesi</h1>
+
 
 ![Image](https://github.com/user-attachments/assets/78385db6-2e32-409f-871e-72fc26afae8c)
 
