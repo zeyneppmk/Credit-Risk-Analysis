@@ -58,6 +58,27 @@ Veri kümesi 32581 satır ve 12 sütundan oluşmaktadır. Tablo 1'de veri kümes
 
 ---
 
+## 🛠️ Kütüphane Ve Modüllerin Yüklenmesi
+Bu projeyi çalıştırmadan önce aşağıdaki kütüphaneleri yüklemeniz gerekir.
+# Modelleme ve veri işleme kütüphaneleri
+pip install catboost
+pip install category_encoders
+pip install scikit-learn
+pip install imbalanced-learn
+pip install xgboost
+pip install lightgbm
+
+# Görselleştirme kütüphaneleri
+pip install matplotlib
+pip install seaborn
+pip install missingno
+
+# İstatistiksel analiz kütüphaneleri
+pip install statsmodels
+
+
+---
+
 ## 🧹 Veri Ön İşleme
 - Eksik değerlerin tespiti ve doldurulması
 - Aykırı değerlerin analizi ve temizlenmesi
