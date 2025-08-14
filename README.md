@@ -76,9 +76,8 @@ pip install missingno
 
 # İstatistiksel analiz kütüphaneleri
 pip install statsmodels
-pip install \
-  pandas \
-  numpy
+pip install pandas
+pip install numpy
 ```
 ---
 
