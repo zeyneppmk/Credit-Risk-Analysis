@@ -53,6 +53,9 @@ Veri kümesi 32581 satır ve 12 sütundan oluşmaktadır. Tablo 1'de veri kümes
 | 11  | 🗓 **cb_person_cred_hist_length**| Kişinin kredi geçmişi süresi *(yıl olarak)*                                                               |
 | 12  | ✅ **loan_status**               | Kredinin şu an **temerrütte** olup olmadığını gösterir *(1: Temerrüt, 0: Temerrütte değil)*                |
 
+
+❗Veri setimizin hedef değişkeni, değerleri 0 ve 1 olan ikili bir değişken olan “loan_status” dur. Kredi temerrüt riski, bireylerin ödünç verilen parayı zamanında geri ödeyememe olasılığıdır. Veri çerçevesinde 4 kategorik öznitelik ve 8 sayısal öznitelik bulunmaktadır.
+
 ---
 
 ## 🧹 Veri Ön İşleme
