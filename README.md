@@ -59,7 +59,8 @@ Veri kümesi 32581 satır ve 12 sütundan oluşmaktadır. Tablo 1'de veri kümes
 ---
 
 ## 🛠️ Kütüphane Ve Modüllerin Yüklenmesi
-Bu projeyi çalıştırmadan önce aşağıdaki kütüphaneleri yüklemeniz gerekir.
+Bu projeyi çalıştırmadan önce aşağıdaki kütüphaneleri yüklemeniz gereklidir.
+```bash
 # Modelleme ve veri işleme kütüphaneleri
 pip install catboost
 pip install category_encoders
@@ -75,8 +76,10 @@ pip install missingno
 
 # İstatistiksel analiz kütüphaneleri
 pip install statsmodels
-
-
+pip install \
+  pandas \
+  numpy
+```
 ---
 
 ## 🧹 Veri Ön İşleme
