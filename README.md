@@ -36,14 +36,21 @@ Kredi riski analizi, potansiyel borçluların temerrüde düşme olasılığın�
 ---
 
 ## 🗂 Veri Seti ve Özellikler
-- **Toplam Gözlem:** 2000+
-- **Önemli Değişkenler:**
-  - `Income` – Aylık gelir
-  - `Age` – Yaş
-  - `Credit_History` – Kredi geçmişi puanı
-  - `Loan_Amount` – Talep edilen kredi tutarı
-  - `Employment_Type` – Çalışma durumu
-- **Hedef Değişken:** `Risk_Flag` (0 = Düşük Risk, 1 = Yüksek Risk)
+Veri kümesi 32581 satır ve 12 sütundan oluşmaktadır. Tablo 1'de veri kümesindeki her bir sütunun ayrıntılı açıklaması yer almaktadır.
+| No  | 📌 **Sütun Adı**                | 📝 **Açıklama**                                                                                           |
+|:---:|---------------------------------|-----------------------------------------------------------------------------------------------------------|
+| 1   | 🧑 **person_age**                | Kişinin yaşı *(yıl olarak)*                                                                               |
+| 2   | 💰 **person_income**             | Kişinin **yıllık geliri**                                                                                 |
+| 3   | 🏠 **person_home_ownership**     | Ev sahipliği türü *(Kiracı, ev sahibi, ipotek, diğer)*                                                    |
+| 4   | 👔 **person_emp_length**         | Kişinin işte çalışma süresi *(yıl olarak)*                                                                |
+| 5   | 🎯 **loan_intent**               | Kredinin amacı *(kişisel, eğitim, tıbbi, girişim, ev iyileştirme, borç yapılandırma)*                      |
+| 6   | 📊 **loan_grade**                | **Kredi notu** *(A, B, C, D, E, F, G)*                                                                    |
+| 7   | 💵 **loan_amnt**                 | Talep edilen **kredi miktarı**                                                                            |
+| 8   | 📈 **loan_int_rate**             | **Kredi faiz oranı**                                                                                      |
+| 9   | 📉 **loan_percent_income**       | Kredinin **gelire oranı**                                                                                 |
+| 10  | ⚠️ **cb_person_default_on_file** | Kişinin daha önce **temerrüt geçmişi** olup olmadığı *(Evet / Hayır)*                                     |
+| 11  | 🗓 **cb_person_cred_hist_length**| Kişinin kredi geçmişi süresi *(yıl olarak)*                                                               |
+| 12  | ✅ **loan_status**               | Kredinin şu an **temerrütte** olup olmadığını gösterir *(1: Temerrüt, 0: Temerrütte değil)*                |
 
 ---
 
