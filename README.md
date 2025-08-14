@@ -1,4 +1,4 @@
-![Banner]https://github.com/zeyneppmk/Credit-Risk-Analysis/issues/1#issue-3321210788
+![Image](https://github.com/user-attachments/assets/78385db6-2e32-409f-871e-72fc26afae8c)
 
 
 # 📊 Kredi Riski Analizi – Makine Öğrenmesi
