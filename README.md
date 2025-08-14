@@ -1,3 +1,6 @@
+![Banner]https://github.com/zeyneppmk/Credit-Risk-Analysis/issues/1#issue-3321210788
+
+
 # 📊 Kredi Riski Analizi – Makine Öğrenmesi
 
 Bu proje, kredi başvuru verilerini analiz ederek başvuru sahibinin **kredi riskini tahmin etmeyi** amaçlamaktadır.  
