@@ -148,3 +148,185 @@ Görselleştirmeler:
    ```bash
    git clone https://github.com/kullanici/kredi-risk-analizi.git
    cd kredi-risk-analizi
+
+
+
+# 📊 Credit Risk Analysis – Logistic Regression & LightGBM
+
+Bu proje, kredi başvurularında **müşteri temerrüt riskini** tahmin etmeye yönelik makine öğrenimi tabanlı bir çalışmadır. Çalışmada hem klasik yöntemler (**Logistic Regression**) hem de gelişmiş algoritmalar (**LightGBM**) uygulanarak performansları karşılaştırılmıştır.  
+
+Amaç: Finans kuruluşlarının risk yönetimini geliştirmek, kredi verirken daha doğru karar almasını sağlamaktır.  
+
+---
+
+## 🛠 Veri Ön İşleme (Eksik veri, dengesizlik, encoding)
+
+### Eksik Veriler
+Eksik veriler `IterativeImputer` ile dolduruldu. Bu yöntem, çok değişkenli istatistiksel yaklaşımla eksik değerleri tahmin ederek daha güvenilir sonuçlar üretti.  
+
+```python
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+
+imputer = IterativeImputer()
+X_imputed = imputer.fit_transform(X)
+```
+
+📌 Eksik veriler tamamlandıktan sonra dağılımlar tekrar kontrol edilmiştir.  
+
+![Eksik Veri Görselleştirme](img/missing_data.png)
+
+---
+
+### Veri Dengesizliği
+Veri setinde “temerrüt” sınıfı dengesizdi. Bu nedenle **SMOTE (Synthetic Minority Oversampling Technique)** uygulanarak veriler dengelendi.  
+
+```python
+from imblearn.over_sampling import SMOTE
+
+sm = SMOTE(random_state=42)
+X_res, y_res = sm.fit_resample(X, y)
+```
+
+![SMOTE Sonrası Dağılım](img/smote_balance.png)
+
+---
+
+### Encoding
+Kategorik değişkenler **One-Hot Encoding** yöntemi ile sayısal değerlere dönüştürüldü.  
+
+```python
+from sklearn.preprocessing import OneHotEncoder
+encoder = OneHotEncoder()
+X_encoded = encoder.fit_transform(df[categorical_features])
+```
+
+---
+
+## 📈 EDA (Keşifsel Veri Analizi) – Grafikler & Tablolar
+
+### Yaş Dağılımı
+Çoğu başvuran 20–40 yaş aralığındadır.  
+
+```python
+sns.histplot(df["person_age"], bins=30, kde=True)
+```
+![Yaş Dağılımı](img/age_distribution.png)
+
+---
+
+### Gelir Dağılımı
+Düşük gelir grubunda temerrüt oranı daha yüksektir.  
+
+```python
+sns.histplot(df["person_income"], bins=40, kde=True)
+```
+![Gelir Dağılımı](img/income_distribution.png)
+
+---
+
+### Kredi Notu ve Temerrüt İlişkisi
+Düşük kredi notuna sahip kişilerin temerrüt oranı ciddi şekilde artmaktadır.  
+
+```python
+sns.barplot(x="loan_grade", y="loan_status", data=df)
+```
+![Kredi Notu vs Default](img/loan_grade_default.png)
+
+---
+
+### Kredinin Gelire Oranı
+Kredinin gelire oranı yükseldikçe temerrüt ihtimali artmaktadır.  
+
+```python
+sns.scatterplot(x="loan_percent_income", y="loan_status", data=df)
+```
+![Loan Percent Income](img/loan_income_ratio.png)
+
+---
+
+## 🤖 Modelleme (Logistic Regression, LightGBM vs.)
+
+### Logistic Regression
+```python
+from sklearn.linear_model import LogisticRegression
+log_model = LogisticRegression()
+log_model.fit(X_train, y_train)
+y_pred_log = log_model.predict(X_test)
+```
+- ROC-AUC: **0.71**  
+- Precision: **0.68**  
+- Recall: **0.65**
+
+![Confusion Matrix – LR](img/cm_logreg.png)
+
+---
+
+### LightGBM
+```python
+from lightgbm import LGBMClassifier
+lgbm = LGBMClassifier()
+lgbm.fit(X_train, y_train)
+y_pred_lgbm = lgbm.predict(X_test)
+```
+- ROC-AUC: **0.87**  
+- Precision: **0.82**  
+- Recall: **0.80**
+
+![Confusion Matrix – LGBM](img/cm_lightgbm.png)
+![ROC Curve – LGBM](img/roc_lightgbm.png)
+
+---
+
+## ⚖️ Performans Karşılaştırması
+
+| Model                | ROC-AUC | Precision | Recall | F1-Score |
+|----------------------|---------|-----------|--------|----------|
+| Logistic Regression  | 0.71    | 0.68      | 0.65   | 0.66     |
+| LightGBM             | 0.87    | 0.82      | 0.80   | 0.81     |
+
+📌 LightGBM, açık ara daha iyi sonuç vermiştir.
+
+---
+
+## 🌟 Öne Çıkan Bulgular & Sonuçlar
+
+- **LightGBM**, Logistic Regression’a göre %15 daha yüksek ROC-AUC değerine ulaşmıştır.  
+- En önemli değişkenler:  
+  - `loan_percent_income` (gelir/kredi oranı)  
+  - `loan_grade` (kredi notu)  
+  - `person_income` (yıllık gelir)  
+- Bu model finans sektöründe risk değerlendirme sistemine entegre edilebilir ve bankaların **temerrüt riskini erken belirlemesine** katkı sağlar.
+
+---
+
+## ⚙️ Nasıl Çalıştırılır?
+
+```bash
+# Gerekli kütüphaneleri yükle
+pip install -r requirements.txt
+
+# Notebook'u çalıştır
+jupyter notebook LogisticRegressionandLightGBM.ipynb
+```
+
+---
+
+## 🛠 Kullanılan Teknolojiler
+- **Python**: pandas, numpy, scikit-learn, imbalanced-learn  
+- **Modeller**: Logistic Regression, LightGBM  
+- **EDA**: Matplotlib, Seaborn, Missingno  
+- **Değerlendirme**: Confusion Matrix, ROC Curve, Classification Report  
+
+---
+
+## 🚀 Sonraki Adımlar & Geliştirmeler
+- **XGBoost** ve **CatBoost** gibi diğer boosting algoritmaları ile karşılaştırma.  
+- Yeni değişkenler türeterek **feature engineering** geliştirme.  
+- Modelin bir **REST API** olarak canlı ortama taşınması.  
+- Daha geniş veri setleriyle test edilmesi.  
+
+---
+
+👨‍💻 *Bu proje, veri bilimi ve makine öğrenimi alanındaki uzmanlığımı göstermek amacıyla hazırlanmıştır. Hem teknik hem de işlevsel çıktılarıyla dikkat çekmektedir.*
+
