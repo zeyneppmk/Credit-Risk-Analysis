@@ -311,16 +311,7 @@ df["person_home_ownership"] = df["person_home_ownership"].apply(SC_LabelEncoder3
 #### 2️⃣ Binary Encoding
 Kategoriler önce sayılara, ardından ikilik (binary) sisteme çevrilir. Çok kategorili (high cardinality) değişkenlerde kullanılarak sütun patlamasını önler.
 
-📌 `loan_intent` sütunu için
-
-EDUCATION	
-MEDICAL	
-VENTURE	
-PERSONAL
-DEBTCONSOLIDATION	
-HOMEIMPROVEMENT 
-
-olmak üzere toplamda altı adet farklı değer bulunmaktadır. 
+📌 `loan_intent` sütunu için EDUCATION, MEDICAL, VENTURE, PERSONAL, DEBTCONSOLIDATION, HOMEIMPROVEMENT olmak üzere toplamda altı adet farklı değer bulunmaktadır. 
 
 Bu sebepten binary encoding ile 3 basamaklı kodlanmış olur . 2 bit max 4 farklı kombinasyon yaparken 3 bit 8 farklı kombinasyon yapabilmektedir.
 
@@ -338,10 +329,9 @@ df.head()
 ---
 
 ## 📊 Keşifsel Veri Analizi (EDA)
-- Değişkenlerin dağılım grafikleri
-- Hedef değişken ile ilişkilerin incelenmesi
-- Korelasyon matrisi ve ısı haritası
-- Önemli istatistiksel gözlemler
+
+<img width="1100" height="670" alt="image" src="https://github.com/user-attachments/assets/092c72e8-92c2-404d-9be0-99e34960b5da" />
+
 
 ---
 
