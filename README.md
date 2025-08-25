@@ -135,7 +135,7 @@ df.describe()
 
 ### 2- Eksik Veriler ve İşlem Yöntemleri
 
-📌 Eksik veriler belirlednikten sonra veri setinin durumuna göre nasıl bir yol izleneceği belirlenmelidir. Aşağıda bazı yöntemler açıklanmıştır ⬇️
+📌 Eksik veriler(Missing Values) belirlednikten sonra veri setinin durumuna göre nasıl bir yol izleneceği belirlenmelidir. Aşağıda bazı yöntemler açıklanmıştır ⬇️
 
 | ✅ Yöntem | 📝 Açıklama | 📌 Ne Zaman Kullanılır? |
 |-----------|------------|--------------------------|
@@ -147,7 +147,7 @@ df.describe()
 | **Tahmine Dayalı Yöntemler** (`KNNImputer`, `IterativeImputer`) | Diğer sütunları kullanarak eksikleri tahmin eder | Eksik oranı yüksekse veya basit doldurma yöntemleri işe yaramıyorsa |
 | **Eksiklik Bayrağı Oluşturma** | Eksik değer var mı yok mu bilgisini binary sütun olarak ekler | Eksikliğin kendisi anlamlı bir bilgi taşıyorsa (örn. gelir bilgisi boş = riskli müşteri) |
 
-📌 Bu projede `person_emp_length` ve `loan_int_rate` sütunlarında ekisk değerler kaydedilmiştir. Bu verilerin projedeki önemi göz önüne alınarak farklı yöntemler kullanılmıştır. 
+📌 Bu projede `person_emp_length` ve `loan_int_rate` sütunlarında eksik değerler kaydedilmiştir. Bu verilerin projedeki önemi göz önüne alınarak farklı yöntemler kullanılmıştır. 
 
 ```python
 ##none veya nan degerlerin sayisini belirtir
@@ -158,6 +158,8 @@ print(df.isnull().sum())
 
  ---
 
+📌 `person_emp_length`sütunundaki eksik değerlerin ortadan kalkması için ortalama değeri bulunup eksik olan satırlara yerleştirilmiştir. 
+
 ```python
 # 'person_emp_length' sütunundaki ortalamayı hesaplayın
 mean_emp_length = df['person_emp_length'].mean()
@@ -166,7 +168,7 @@ mean_emp_length = df['person_emp_length'].mean()
 df['person_emp_length'].fillna(mean_emp_length, inplace=True)
 
 ```
----
+📌 `loan_int_rate` sütunundaki eksik değerlerin olduğu satırlar silindi.
 
 ```python
 # 'loan_int_rate' sütunundaki eksik değerleri silmek
@@ -175,11 +177,26 @@ df = df[df['loan_int_rate'].notna()]
 # Güncellenmiş DataFrame'i kontrol etmek için
 df.head()
 ```
-
-
-![Eksik Veri Görselleştirme](img/missing_data.png)
-
 ---
+
+### 3- Duplicate (yinelenen) Satırların Tespiti
+📌Veri toplama sürecindeki hatalar , veri birleştirirken yapılan hatalar ve benzer sebeplerden dolayı veri setlerinde duplicate(tekrarlayan) veriler ile karşılaşılmaktadır. Duplicate veriler istatikssel analizi bozar ve modeli yanıltır, hesaplama maliyetini arttırır. Duplicate veriler kontrol edilerek veri setinden silinmelidir.
+
+```python
+## Checking for Duplicates
+dups = df.duplicated()
+dups.value_counts() 
+```
+
+<img width="1100" height="200" alt="image" src="https://github.com/user-attachments/assets/09e02441-258a-496e-998b-3490c978b802" />
+
+
+```python
+print(f"duplicate(yinelenen) satirlari kaldirmadan once verinin sekli: {df.shape[0]},{df.shape[1]} \n")
+df.drop_duplicates(inplace=True)
+print(f"duplicate(yinelenen) satirlari kaldirdiktan sonra verinin sekli: {df.shape[0]},{df.shape[1]}")
+```
+<img width="1418" height="114" alt="image" src="https://github.com/user-attachments/assets/a44da34b-1bf2-4366-8ae9-d20c0b4c046c" />
 
 
 
