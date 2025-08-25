@@ -89,7 +89,7 @@ pip install numpy
 - Aykırı değerlerin analizi ve temizlenmesi
 - Kategorik değişkenlerin kodlanması (Label Encoding / Binary Encoding /One-Hot Encoding)
 
-### Verinin Genel Bilgilerini Alma
+### 1- Verinin Genel Bilgilerini Alma
 Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.
 
 ```python
@@ -99,6 +99,14 @@ pd.set_option('display.max_columns', None)
 df.head(20)
 ```
 <img width="1709" height="372" alt="Image" src="https://github.com/user-attachments/assets/664916ed-9c65-4c4c-b845-778f030cf401" />
+
+Verinin kaç satır ve sütundan oluştuğunun gözlemlenmesi yaptığımız işlemlerde öncesinin ve sonrasının daha iyi anlaşılması için önemlidir.
+
+```python
+df.shape[0],df.shape[1]
+```
+<img width="1825" height="47" alt="image" src="https://github.com/user-attachments/assets/6a2ad51d-e64f-49b3-831f-d6a41132cbee" />
+
 
 ### Eksik Veriler
 Eksik veriler `IterativeImputer` ile dolduruldu. Bu yöntem, çok değişkenli istatistiksel yaklaşımla eksik değerleri tahmin ederek daha güvenilir sonuçlar üretti.  
