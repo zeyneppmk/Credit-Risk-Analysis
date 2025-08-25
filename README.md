@@ -328,10 +328,37 @@ df.head()
 
 ---
 
-## 📊 Keşifsel Veri Analizi (EDA)
+## 🔍 Keşifsel Veri Analizi (Exploratory Data Analysis - EDA)
 
-<img width="1100" height="670" alt="image" src="https://github.com/user-attachments/assets/092c72e8-92c2-404d-9be0-99e34960b5da" />
+📌 **EDA (Exploratory Data Analysis)**, veri biliminde bir veri setini ilk defa incelediğimizde yaptığımız temel adımdır.  
+Amacı, veriyi **daha iyi anlamak**, **örüntüleri görmek**, **anormallikleri tespit etmek** ve sonraki adımlar için uygun modelleri seçmeye zemin hazırlamaktır.
 
+### 🛠️ EDA’da Kullanılan Yaygın Yöntemler
+- **Tanımlayıcı İstatistikler:** Ortalama, medyan, standart sapma gibi özet bilgiler (`df.describe()`)  
+- **Veri Yapısı İncelemesi:** Değişken türleri, eksik değerler, duplicate kayıtlar (`df.info()`, `df.isnull().sum()`)  
+- **Görselleştirmeler:** Histogram, boxplot, dağılım grafikleri, korelasyon ısı haritaları  
+- **Korelasyon Analizi:** Değişkenler arasındaki doğrusal/non-doğrusal ilişkileri anlamak
+
+📌 Bu projede kullanılan bazı yöntemler aşağıdaki gibidir
+
+- Korelasyon Matrisinin Hesaplanması
+
+```python
+# Binary Encoding işlemi
+# Korelasyon matrisi
+corr_matrix = df.corr()
+
+# Isı haritası
+plt.figure(figsize=(12, 8))
+sns.heatmap(corr_matrix, annot=True, cmap='coolwarm', fmt='.2f')
+plt.show()
+```
+<img width="1279" height="950" alt="image" src="https://github.com/user-attachments/assets/50f7795b-3633-4bab-b8a5-7682173e71bd" />
+
+
+**cb_person_cred_hist_length**: Kredi geçmişi uzunluğu, doğrudan kişinin kredi itibarını gösterir. Daha uzun bir kredi geçmişi genellikle daha iyi kredi puanına işaret eder ve kredi risk analizinde kritik bir faktör olarak kabul edilir.
+
+**person_age**, dolaylı bir etkiye sahiptir. Yaş tek başına kredi riski açısından yeterli bilgi sunmayabilir; ancak kredi geçmişi uzunluğu bireyin ödeme geçmişi hakkında doğrudan bilgi sağlar.
 
 ---
 
