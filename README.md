@@ -91,8 +91,7 @@ pip install numpy
 
 ### 1- Verinin Genel Bilgilerini Alma
 
-
-  `Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.`
+  Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.
 ```python
 df = pd.read_csv('loan_data.csv')
 #tum sutunları gozlemlemek icin
