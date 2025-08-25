@@ -222,7 +222,7 @@ df['loan_int_rate'].value_counts()
 ---
 
 
-### 4- Kategorik Değişkenlerin Kodlanması (Label Encoding / Binary Encoding)
+### 45 Kategorik Değişkenlerin Kodlanması (Label Encoding / Binary Encoding)
 📌 Veri setinde bazı sütunlar string türündedir(örn. "Ev Sahibi", "Kiracı").Öncelikle veri setinde bu sütunların tespit edilmesi gerekmedktedir.
 
 ```python
@@ -249,9 +249,7 @@ Verilerimizi birebir sayısallaştırmak için kullanılan fonksiyondur. Yani ka
 📌 Bu projede doğrudan `dsklearn.LabelEncoder` kullanmak yerine bazı özel tanımlı Label Encoding fonksiyonları yazılmıştır.
 - **SC_LabelEncoder1** : Burada kredi notları (loan_grade) harflerden sayılara çevriliyor.
 
-“A” en yüksek puanı temsil ettiği için 7, “G” en düşük puanı temsil ettiği için 1 atanmış. Eğer başka bir değer varsa → 0 döndürülüyor.
-
-👉 Böylece kredi notunu sıralı (ordinal) hale getirilmiş olur.
+“A” en yüksek puanı temsil ettiği için 7, “G” en düşük puanı temsil ettiği için 1 atanmış. Eğer başka bir değer varsa → 0 döndürülüyor. Böylece kredi notunu sıralı (ordinal) hale getirilmiş olur.
 
 - **SC_LabelEncoder2** : Bu, kişinin daha önce temerrüde düşüp düşmediğini gösteren (cb_person_default_on_file) sütun için.
 
@@ -307,6 +305,24 @@ df["person_home_ownership"] = df["person_home_ownership"].apply(SC_LabelEncoder3
 ```
 
 <img width="1844" height="507" alt="image" src="https://github.com/user-attachments/assets/0bbd339c-1210-40de-9ea6-1e630baa95f6" />
+
+---
+
+#### 2️⃣ Binary Encoding
+Kategoriler önce sayılara, ardından ikilik (binary) sisteme çevrilir. Çok kategorili (high cardinality) değişkenlerde kullanılarak sütun patlamasını önler.
+
+```python
+# Binary Encoding işlemi
+encoder = ce.BinaryEncoder(cols=['loan_intent'])
+df_encoded = encoder.fit_transform(df)
+df = df_encoded
+# Sonuçları kontrol etme
+df.head()
+```
+Öncesi
+<img width="396" height="226" alt="image" src="https://github.com/user-attachments/assets/f34bd8a4-2aac-45fc-9663-d4fe2f3b6e54" />
+Sonrası : 
+<img width="389" height="232" alt="image" src="https://github.com/user-attachments/assets/57f754bc-10e1-4d21-b710-6ee7fbd9b20d" />
 
 ---
 
