@@ -223,13 +223,25 @@ df['loan_int_rate'].value_counts()
 
 
 ### 4- Kategorik Değişkenlerin Kodlanması (Label Encoding / Binary Encoding)
-📌 Veri setinde bazı sütunlar string türündedir(örn. "Ev Sahibi", "Kiracı").
+📌 Veri setinde bazı sütunlar string türündedir(örn. "Ev Sahibi", "Kiracı").Öncelikle veri setinde bu sütunların tespit edilmesi gerekmedktedir.
+
+```python
+ccol = df.select_dtypes(include = ["object"]).columns
+ncol = df.select_dtypes(include = ["int","float"]).columns
+
+print(f"Categorical Column: {ccol} \n")
+print(f"Numerical Column: {ncol}")
+
+print(f"\nCategorical Column Count: {len(ccol)} \n")
+print(f"Numerical Column Count: {len(ncol)}")
+```
+<img width="1439" height="284" alt="image" src="https://github.com/user-attachments/assets/c5673fec-bc3f-4adf-925f-3d96cda56ee5" />
+
+
 
 📌 Makine öğrenmesi algoritmaları yalnızca **sayısal verilerle** çalışır.  
 Bu nedenle kategorik (string) veriler uygun yöntemlerle **sayılara dönüştürülmelidir**.  
 Aşağıda en sık kullanılan iki yöntem açıklanmıştır:
-
----
 
 #### 1️⃣ Label Encoding
 
