@@ -244,19 +244,29 @@ Bu nedenle kategorik (string) veriler uygun yöntemlerle **sayılara dönüştü
 Aşağıda en sık kullanılan iki yöntem açıklanmıştır:
 
 #### 1️⃣ Label Encoding
-
-- **Tanım:** Her kategoriye **benzersiz bir tamsayı** atanır.
-- **Avantajı:** Basit, hızlı ve bellek dostudur.  
-- **Dezavantajı:** Kategoriler arasında **sıralı ilişki varmış gibi** davranabilir.  
-- **En Uygun Kullanım:** Ağaç tabanlı algoritmalar (Decision Tree, Random Forest, XGBoost, LightGBM).
+Verilerimizi birebir sayısallaştırmak için kullanılan fonksiyondur. Yani kategorik her veriye sayısal bir değer (etiket numarası) atar. Örneğin 4 farklı meyvemiz olduğunu varsayalım, Label Encoding fonksiyonu sıfırdan başlayıp her bir meyve için etiket numarası verecektir.
 
 📌 Bu projede doğrudan `dsklearn.LabelEncoder` kullanmak yerine bazı özel tanımlı Label Encoding fonksiyonları yazılmıştır.
 - **SC_LabelEncoder1** : Burada kredi notları (loan_grade) harflerden sayılara çevriliyor.
 
-“A” en yüksek puanı temsil ettiği için 7, “G” en düşük puanı temsil ettiği için 1 atanmış.
+“A” en yüksek puanı temsil ettiği için 7, “G” en düşük puanı temsil ettiği için 1 atanmış. Eğer başka bir değer varsa → 0 döndürülüyor.
 
-Eğer başka bir değer varsa → 0 döndürülüyor.
-👉 Yani kredi notunu sıralı (ordinal) hale getirmiş oluyorsun.
+👉 Böylece kredi notunu sıralı (ordinal) hale getirilmiş olur.
+
+- **SC_LabelEncoder2** : Bu, kişinin daha önce temerrüde düşüp düşmediğini gösteren (cb_person_default_on_file) sütun için.
+
+Y (Yes) → 0, N (No) → 1 yapılmış.
+
+- **SC_LabelEncoder3** : Ev sahipliği (person_home_ownership) kategorisi sayılara çevriliyor:
+
+Rent (kiracı) → 1
+
+Mortgage (ipotekli ev) → 2
+
+Own (ev sahibi) → 3
+
+Diğer tüm durumlar → 0
+
 
 ```python
 def SC_LabelEncoder1(text):
@@ -296,14 +306,9 @@ df["cb_person_default_on_file"] = df["cb_person_default_on_file"].apply(SC_Label
 df["person_home_ownership"] = df["person_home_ownership"].apply(SC_LabelEncoder3)
 ```
 
+<img width="1844" height="507" alt="image" src="https://github.com/user-attachments/assets/0bbd339c-1210-40de-9ea6-1e630baa95f6" />
 
-
-
-
-
-
-
-
+---
 
 ## 📊 Keşifsel Veri Analizi (EDA)
 - Değişkenlerin dağılım grafikleri
