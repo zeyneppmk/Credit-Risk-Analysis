@@ -198,7 +198,26 @@ print(f"duplicate(yinelenen) satirlari kaldirdiktan sonra verinin sekli: {df.sha
 ```
 <img width="1418" height="114" alt="image" src="https://github.com/user-attachments/assets/a44da34b-1bf2-4366-8ae9-d20c0b4c046c" />
 
+---
 
+### 4- Aykırı Değerlerin Analizi
+📌İstatistikte aykırı değer, diğer gözlemlerden önemli ölçüde farklı olan bir veri noktasıdır.Veri girişi hataları, farklı ölçüm birimleri yada gerçek ama nadir durumlardan dolayı gözlemlenebilir.
+
+📌Bu projede aykırı değerler aşağıdaki yöntemlerle kontrol edilmiştir ⬇️
+
+### 🔎 Frekans Analizi ile Aykırı Değer Tespiti 
+
+- 📌 Sayısal değişkenlerde (ör. `person_age`, `person_emp_length`) **value_counts()** ile dağılım incelenmiştir.  
+- 🔍 Böylece yaş veya çalışma süresi gibi değişkenlerde **beklenmeyen uç değerler** kolayca fark edilmiştir.  
+- 🏠 Kategorik değişkenlerde (ör. `person_home_ownership`) **value_counts()** nadir kategorilerin belirlenmesi için kullanılmıştır.  
+- 💰 Sürekli değişkenlerde (ör. `loan_int_rate`) oranların mantıklı aralıkta olup olmadığı kontrol edilmiştir.  
+
+```python
+df['person_age'].value_counts().sort_index()
+df['person_emp_length'].value_counts()
+df['person_home_ownership'].value_counts()
+df['loan_int_rate'].value_counts()
+```
 
 
 
