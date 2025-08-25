@@ -91,7 +91,7 @@ pip install numpy
 
 ### 1- Verinin Genel Bilgilerini Alma
 
-  📌 Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.
+  📌 Veri setinin anlaşılması için öncelikle incelenmesi gerekmektedir.
 ```python
 df = pd.read_csv('loan_data.csv')
 #tum sutunları gozlemlemek icin
@@ -108,6 +108,27 @@ df.head(20)
 df.shape[0],df.shape[1]
 ```
 <img width="1825" height="47" alt="image" src="https://github.com/user-attachments/assets/6a2ad51d-e64f-49b3-831f-d6a41132cbee" />
+
+
+📌 Veri yapısının genel bilgisini görmek için `df.info()` kullanılır
+
+```python
+#veri genel bilgilerini alma
+df.info()
+```
+<img width="1844" height="438" alt="image" src="https://github.com/user-attachments/assets/c5cf1690-bc0b-48ce-9603-b7466ea6cec9" />
+
+---
+
+📌 Sayısal sütunların istatistiksel özetini görmek için `df.describe()` kullanılır
+
+```python
+#veri genel bilgilerini alma
+df.info()
+```
+<img width="1844" height="438" alt="image" src="https://github.com/user-attachments/assets/c5cf1690-bc0b-48ce-9603-b7466ea6cec9" />
+
+---
 
 
 ### Eksik Veriler
