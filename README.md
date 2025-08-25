@@ -237,7 +237,7 @@ print(f"Numerical Column Count: {len(ncol)}")
 ```
 <img width="1439" height="284" alt="image" src="https://github.com/user-attachments/assets/c5673fec-bc3f-4adf-925f-3d96cda56ee5" />
 
-
+---
 
 📌 Makine öğrenmesi algoritmaları yalnızca **sayısal verilerle** çalışır.  
 Bu nedenle kategorik (string) veriler uygun yöntemlerle **sayılara dönüştürülmelidir**.  
@@ -250,7 +250,51 @@ Aşağıda en sık kullanılan iki yöntem açıklanmıştır:
 - **Dezavantajı:** Kategoriler arasında **sıralı ilişki varmış gibi** davranabilir.  
 - **En Uygun Kullanım:** Ağaç tabanlı algoritmalar (Decision Tree, Random Forest, XGBoost, LightGBM).
 
+📌 Bu projede doğrudan `dsklearn.LabelEncoder` kullanmak yerine bazı özel tanımlı Label Encoding fonksiyonları yazılmıştır.
+- **SC_LabelEncoder1** : Burada kredi notları (loan_grade) harflerden sayılara çevriliyor.
 
+“A” en yüksek puanı temsil ettiği için 7, “G” en düşük puanı temsil ettiği için 1 atanmış.
+
+Eğer başka bir değer varsa → 0 döndürülüyor.
+👉 Yani kredi notunu sıralı (ordinal) hale getirmiş oluyorsun.
+
+```python
+def SC_LabelEncoder1(text):
+    if text == "G":
+        return 1
+    elif text == "F":
+        return 2
+    elif text == "E":
+        return 3
+    elif text == "D":
+        return 4
+    elif text == "C":
+        return 5
+    elif text == "B":
+        return 6
+    elif text == "A":
+        return 7
+    else:
+        return 0
+def SC_LabelEncoder2(text):
+    if text == "Y":
+        return 0
+    elif text == "N":
+        return 1
+def SC_LabelEncoder3(text):
+    if text == "RENT":
+        return 1
+    elif text == "MORTGAGE":
+        return 2
+    elif text == "OWN":
+        return 3
+    else:
+        return 0
+
+df["loan_grade"] = df["loan_grade"].apply(SC_LabelEncoder1)
+df["cb_person_default_on_file"] = df["cb_person_default_on_file"].apply(SC_LabelEncoder2)
+df["person_home_ownership"] = df["person_home_ownership"].apply(SC_LabelEncoder3)
+```
 
 
 
