@@ -133,8 +133,9 @@ df.describe()
 ---
 
 
-### 🕳️ Eksik Veriler ve İşlem Yöntemleri
+### 2- Eksik Veriler ve İşlem Yöntemleri
 
+📌 Eksik veriler belirlednikten sonra veri setinin durumuna göre nasıl bir yol izleneceği belirlenmelidir. Aşağıda bazı yöntemler açıklanmıştır ⬇️
 
 | ✅ Yöntem | 📝 Açıklama | 📌 Ne Zaman Kullanılır? |
 |-----------|------------|--------------------------|
@@ -146,9 +147,35 @@ df.describe()
 | **Tahmine Dayalı Yöntemler** (`KNNImputer`, `IterativeImputer`) | Diğer sütunları kullanarak eksikleri tahmin eder | Eksik oranı yüksekse veya basit doldurma yöntemleri işe yaramıyorsa |
 | **Eksiklik Bayrağı Oluşturma** | Eksik değer var mı yok mu bilgisini binary sütun olarak ekler | Eksikliğin kendisi anlamlı bir bilgi taşıyorsa (örn. gelir bilgisi boş = riskli müşteri) |
 
+📌 Bu projede `person_emp_length` ve `loan_int_rate` sütunlarında ekisk değerler kaydedilmiştir. Bu verilerin projedeki önemi göz önüne alınarak farklı yöntemler kullanılmıştır. 
 
+```python
+##none veya nan degerlerin sayisini belirtir
+print("Eksik Veri Kontrolü ve toplamda kaç adet eksik veri içerdiği")
+print(df.isnull().sum())
+```
+<img width="1328" height="319" alt="image" src="https://github.com/user-attachments/assets/7198644a-4f91-49ec-ac8b-2b0ed4562222" />
 
-📌 Eksik veriler tamamlandıktan sonra dağılımlar tekrar kontrol edilmiştir.  
+ ---
+
+```python
+# 'person_emp_length' sütunundaki ortalamayı hesaplayın
+mean_emp_length = df['person_emp_length'].mean()
+
+# Eksik (NaN) değerleri ortalama ile doldurun
+df['person_emp_length'].fillna(mean_emp_length, inplace=True)
+
+```
+---
+
+```python
+# 'loan_int_rate' sütunundaki eksik değerleri silmek
+df = df[df['loan_int_rate'].notna()]
+
+# Güncellenmiş DataFrame'i kontrol etmek için
+df.head()
+```
+
 
 ![Eksik Veri Görselleştirme](img/missing_data.png)
 
@@ -409,4 +436,4 @@ jupyter notebook LogisticRegressionandLightGBM.ipynb
 ---
 
 👨‍💻 *Bu proje, veri bilimi ve makine öğrenimi alanındaki uzmanlığımı göstermek amacıyla hazırlanmıştır. Hem teknik hem de işlevsel çıktılarıyla dikkat çekmektedir.*
-
+🧩
