@@ -90,8 +90,9 @@ pip install numpy
 - Kategorik değişkenlerin kodlanması (Label Encoding / Binary Encoding /One-Hot Encoding)
 
 ### 1- Verinin Genel Bilgilerini Alma
-Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.
 
+
+  `Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.`
 ```python
 df = pd.read_csv('loan_data.csv')
 #tum sutunları gozlemlemek icin
@@ -99,6 +100,7 @@ pd.set_option('display.max_columns', None)
 df.head(20)
 ```
 <img width="1709" height="372" alt="Image" src="https://github.com/user-attachments/assets/664916ed-9c65-4c4c-b845-778f030cf401" />
+
 
 Verinin kaç satır ve sütundan oluştuğunun gözlemlenmesi yaptığımız işlemlerde öncesinin ve sonrasının daha iyi anlaşılması için önemlidir.
 
