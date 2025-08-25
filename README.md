@@ -98,7 +98,7 @@ df = pd.read_csv('loan_data.csv')
 pd.set_option('display.max_columns', None)
 df.head(20)
 ```
-![Image]<img width="1709" height="372" alt="Image" src="https://github.com/user-attachments/assets/664916ed-9c65-4c4c-b845-778f030cf401" />
+<img width="1709" height="372" alt="Image" src="https://github.com/user-attachments/assets/664916ed-9c65-4c4c-b845-778f030cf401" />
 
 ### Eksik Veriler
 Eksik veriler `IterativeImputer` ile dolduruldu. Bu yöntem, çok değişkenli istatistiksel yaklaşımla eksik değerleri tahmin ederek daha güvenilir sonuçlar üretti.  
