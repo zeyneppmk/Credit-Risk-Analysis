@@ -91,7 +91,7 @@ pip install numpy
 
 ### 1- Verinin Genel Bilgilerini Alma
 
-  Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.
+  📌 Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.
 ```python
 df = pd.read_csv('loan_data.csv')
 #tum sutunları gozlemlemek icin
@@ -100,8 +100,9 @@ df.head(20)
 ```
 <img width="1709" height="372" alt="Image" src="https://github.com/user-attachments/assets/664916ed-9c65-4c4c-b845-778f030cf401" />
 
+---
 
-Verinin kaç satır ve sütundan oluştuğunun gözlemlenmesi yaptığımız işlemlerde öncesinin ve sonrasının daha iyi anlaşılması için önemlidir.
+📌 Verinin kaç satır ve sütundan oluştuğunun gözlemlenmesi yaptığımız işlemlerde öncesinin ve sonrasının daha iyi anlaşılması için önemlidir.
 
 ```python
 df.shape[0],df.shape[1]
