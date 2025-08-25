@@ -219,7 +219,24 @@ df['person_home_ownership'].value_counts()
 df['loan_int_rate'].value_counts()
 ```
 
+---
 
+
+### 4- Kategorik Değişkenlerin Kodlanması (Label Encoding / Binary Encoding)
+📌 Veri setinde bazı sütunlar string türündedir(örn. "Ev Sahibi", "Kiracı").
+
+📌 Makine öğrenmesi algoritmaları yalnızca **sayısal verilerle** çalışır.  
+Bu nedenle kategorik (string) veriler uygun yöntemlerle **sayılara dönüştürülmelidir**.  
+Aşağıda en sık kullanılan iki yöntem açıklanmıştır:
+
+---
+
+#### 1️⃣ Label Encoding
+
+- **Tanım:** Her kategoriye **benzersiz bir tamsayı** atanır.
+- **Avantajı:** Basit, hızlı ve bellek dostudur.  
+- **Dezavantajı:** Kategoriler arasında **sıralı ilişki varmış gibi** davranabilir.  
+- **En Uygun Kullanım:** Ağaç tabanlı algoritmalar (Decision Tree, Random Forest, XGBoost, LightGBM).
 
 
 
