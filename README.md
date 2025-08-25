@@ -109,6 +109,7 @@ df.shape[0],df.shape[1]
 ```
 <img width="1825" height="47" alt="image" src="https://github.com/user-attachments/assets/6a2ad51d-e64f-49b3-831f-d6a41132cbee" />
 
+---
 
 📌 Veri yapısının genel bilgisini görmek için `df.info()` kullanılır
 
@@ -124,23 +125,28 @@ df.info()
 
 ```python
 #veri genel bilgilerini alma
-df.info()
+df.describe()
 ```
-<img width="1844" height="438" alt="image" src="https://github.com/user-attachments/assets/c5cf1690-bc0b-48ce-9603-b7466ea6cec9" />
+<img width="1485" height="383" alt="image" src="https://github.com/user-attachments/assets/3cadaca0-309d-4cda-b6b7-9e768b0727ce" />
+
 
 ---
 
 
-### Eksik Veriler
-Eksik veriler `IterativeImputer` ile dolduruldu. Bu yöntem, çok değişkenli istatistiksel yaklaşımla eksik değerleri tahmin ederek daha güvenilir sonuçlar üretti.  
+### 🕳️ Eksik Veriler ve İşlem Yöntemleri
 
-```python
-from sklearn.experimental import enable_iterative_imputer
-from sklearn.impute import IterativeImputer
 
-imputer = IterativeImputer()
-X_imputed = imputer.fit_transform(X)
-```
+| ✅ Yöntem | 📝 Açıklama | 📌 Ne Zaman Kullanılır? |
+|-----------|------------|--------------------------|
+| **Satır Silme** (`dropna`) | Eksik değer içeren satırları tamamen siler | Eksik oranı düşükse (< %5), veri kaybı kritik değilse |
+| **Sütun Silme** | Eksik değer oranı çok yüksek olan sütunu siler | Eksik oranı çok büyükse (> %40) ve sütun kritik değilse |
+| **Sabit Değer ile Doldurma** (`fillna("Unknown", 0)`) | Eksikleri belirli bir sabit değerle doldurur | Kategorik verilerde “Unknown” gibi, sayısalda 0 gibi nötr değer gerekiyorsa |
+| **Ortalama / Medyan / Mod** | Sayısal veriler için mean/median, kategorik için mod ile doldurur | Eksik oranı orta düzeydeyse (%5–30), dağılım dengeliyse |
+| **İleri / Geri Doldurma** (`ffill`, `bfill`) | Eksik değerleri bir önceki veya sonraki değerle doldurur | Zaman serilerinde (ör. günlük fiyat, sensör verisi) |
+| **Tahmine Dayalı Yöntemler** (`KNNImputer`, `IterativeImputer`) | Diğer sütunları kullanarak eksikleri tahmin eder | Eksik oranı yüksekse veya basit doldurma yöntemleri işe yaramıyorsa |
+| **Eksiklik Bayrağı Oluşturma** | Eksik değer var mı yok mu bilgisini binary sütun olarak ekler | Eksikliğin kendisi anlamlı bir bilgi taşıyorsa (örn. gelir bilgisi boş = riskli müşteri) |
+
+
 
 📌 Eksik veriler tamamlandıktan sonra dağılımlar tekrar kontrol edilmiştir.  
 
