@@ -4,6 +4,7 @@
 ![Image](https://github.com/user-attachments/assets/c5996aba-83b2-4632-be9b-98ef7f832257)
 
 
+
 # 📊 Proje Özeti
 
 Kredi riski analizi, potansiyel borçluların temerrüde düşme olasılığını belirlemelerini sağladığı için finansal kurumlar için çok önemli bir görevdir. Bu raporda, Loan Applicant Data for Credit Risk Analysis veri seti üzerinde logistic regresyon ve diğer makine öğrenimi modellerini kullanarak kredi riskini analiz ediyoruz. Amacımız, kredi temerrütlerini tahmin etmede en iyi performans gösteren modeli belirlemek ve kredi riski analizinde en önemli değişkenleri tespit etmektir. Çalışmamız, LightGBM’in 0,93 accuracy, 0,97 precision, 0,82 recall, 0,94 F1-score değeri ile en iyi performans gösteren model olduğunu göstermektedir. 
@@ -82,12 +83,54 @@ pip install numpy
 ---
 
 ## 🧹 Veri Ön İşleme
-- Eksik değerlerin tespiti ve doldurulması
+- Verinin genel bilgilerini alma
+- Eksik değerlerin tespiti ve ortalama değerleri ile doldurulması
+- Duplicate(yinelenen) satırların tespiti ve silinmesi
 - Aykırı değerlerin analizi ve temizlenmesi
-- Kategorik değişkenlerin kodlanması (Label Encoding / One-Hot Encoding)
-- Özellik ölçeklendirme (StandardScaler, MinMaxScaler vb.)
+- Kategorik değişkenlerin kodlanması (Label Encoding / Binary Encoding /One-Hot Encoding)
+
+### Verinin Genel Bilgilerini Alma
+Verisetinin anlaşılması için öncelikle incelenmesi gerekmektedir.
+
+```python
+df = pd.read_csv('loan_data.csv')
+#tum sutunları gozlemlemek icin
+pd.set_option('display.max_columns', None)
+df.head(20)
+```
+![Image]<img width="1709" height="372" alt="Image" src="https://github.com/user-attachments/assets/664916ed-9c65-4c4c-b845-778f030cf401" />
+
+### Eksik Veriler
+Eksik veriler `IterativeImputer` ile dolduruldu. Bu yöntem, çok değişkenli istatistiksel yaklaşımla eksik değerleri tahmin ederek daha güvenilir sonuçlar üretti.  
+
+```python
+from sklearn.experimental import enable_iterative_imputer
+from sklearn.impute import IterativeImputer
+
+imputer = IterativeImputer()
+X_imputed = imputer.fit_transform(X)
+```
+
+📌 Eksik veriler tamamlandıktan sonra dağılımlar tekrar kontrol edilmiştir.  
+
+![Eksik Veri Görselleştirme](img/missing_data.png)
 
 ---
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 ## 📊 Keşifsel Veri Analizi (EDA)
 - Değişkenlerin dağılım grafikleri
