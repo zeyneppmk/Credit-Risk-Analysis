@@ -639,17 +639,19 @@ F1 skoru, precision ve recall arasındaki dengeyi yansıtmaktadır. Bu metrik, m
 ### ROC Eğrisi ve AUC Analizi
 
 **LightGBM (AUC = 0.94):**
+
 LightGBM modeli, eğrisiyle daha geniş bir alan kapladığı için daha yüksek bir AUC değerine sahiptir.
 Bu, modelin sınıflandırma performansının oldukça iyi olduğunu ve pozitif sınıfı negatif sınıftan ayırt etmede başarılı olduğunu gösterir.
 
 -**Logistic Regression (AUC = 0.84):**
+
 Lojistik regresyonun AUC değeri LightGBM'e göre daha düşüktür.
 Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili değildir ancak yine de iyi bir performans sergilemektedir.
 
 <img width="780" height="588" alt="image" src="https://github.com/user-attachments/assets/ec0d66a1-a34f-4bff-ab02-e99ee0cd3511" />
 
 ---
-### Logistic Regresyon için Karışıklık Matrisi(Confusion Matrix) Analizi
+### 📌Logistic Regresyon için Karışıklık Matrisi(Confusion Matrix) Analizi
 
 - **TP (Doğru Pozitif):** Modelin "temerrüt" olarak tahmin ettiği ve gerçekte de temerrüt olan örnekler. 573 temerrüt değeri bu modeldin performans düşüklüğünü göstermektedir.
 - **TN (Doğru Negatif):** Modelin "ödenmiş" olarak tahmin ettiği ve gerçekte de ödenmiş olan örnekler. Modelde 4352 değerine karşılık gelmektedir. 
@@ -660,12 +662,12 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 
 ---
 
-### LightGBM Classification için Karışıklık Matrisi(Confusion Matrix) Analizi
+### 📌LightGBM Classification için Karışıklık Matrisi(Confusion Matrix) Analizi
 
--**TP (Doğru Pozitif):** Modelin "temerrüt" olarak tahmin ettiği ve gerçekte de temerrüt olan örnekler. 922 Temerrüt değeri veride az olduğu için bu şekilde çıkmıştır yani aslında yüksek bir performans göstermektedir.
--**TN (Doğru Negatif):** Modelin "ödenmiş" olarak tahmin ettiği ve gerçekte de ödenmiş olan örnekler. Modelde 4541 değerine karşılık gelmektedir. Toplam test verisine oranladığımızda yüksek bir performans elde edildiği gözlemlenir.
--**FP (Yanlış Pozitif):** Modelin "temerrüt" olarak tahmin ettiği, ancak gerçekte ödenmiş olan örnekler. Bu modelde 32 gibi çok az bir değere karşılık gelmektedir. Bu modelin performansının iyi olduğunu gösterir.
--**FN (Yanlış Negatif):** Modelin "ödenmiş" olarak tahmin ettiği, ancak gerçekte temerrüt olan örnekler. Modelde 367 ye denk gelmektedir.
+- **TP (Doğru Pozitif):** Modelin "temerrüt" olarak tahmin ettiği ve gerçekte de temerrüt olan örnekler. 922 Temerrüt değeri veride az olduğu için bu şekilde çıkmıştır yani aslında yüksek bir performans göstermektedir.
+- **TN (Doğru Negatif):** Modelin "ödenmiş" olarak tahmin ettiği ve gerçekte de ödenmiş olan örnekler. Modelde 4541 değerine karşılık gelmektedir. Toplam test verisine oranladığımızda yüksek bir performans elde edildiği gözlemlenir.
+- **FP (Yanlış Pozitif):** Modelin "temerrüt" olarak tahmin ettiği, ancak gerçekte ödenmiş olan örnekler. Bu modelde 32 gibi çok az bir değere karşılık gelmektedir. Bu modelin performansının iyi olduğunu gösterir.
+- **FN (Yanlış Negatif):** Modelin "ödenmiş" olarak tahmin ettiği, ancak gerçekte temerrüt olan örnekler. Modelde 367 ye denk gelmektedir.
 
 <img width="511" height="424" alt="image" src="https://github.com/user-attachments/assets/e74bd41e-bca4-4c74-8c28-3845e01644cd" />
 
@@ -673,9 +675,9 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 
 ## 📝 Sonuçlar ve Yorumlar
 
--**LightGBM:** En yüksek doğruluk (Accuracy: %93.19), precision (%96.65), ve F1-Score (%94.29) değerlerine ulaşmıştır. Aynı zamanda modelin ROC eğrisi altında kalan alan (AUC: 0.94) oldukça yüksektir, bu da sınıflandırma başarısının güçlü olduğunu göstermektedir.
+- **LightGBM:** En yüksek doğruluk (Accuracy: %93.19), precision (%96.65), ve F1-Score (%94.29) değerlerine ulaşmıştır. Aynı zamanda modelin ROC eğrisi altında kalan alan (AUC: 0.94) oldukça yüksektir, bu da sınıflandırma başarısının güçlü olduğunu göstermektedir.
 
--**Logistic Regression:** Diğer modellere kıyasla en düşük performansı sergilemiştir. Özellikle recall (%44.45) ve F1-Score (%55.02) değerlerinin düşük olması, bu modelin sınıf dengesizliğinden etkilenme potansiyelini ortaya koymaktadır.
+- **Logistic Regression:** Diğer modellere kıyasla en düşük performansı sergilemiştir. Özellikle recall (%44.45) ve F1-Score (%55.02) değerlerinin düşük olması, bu modelin sınıf dengesizliğinden etkilenme potansiyelini ortaya koymaktadır.
 
 💡 LightGBM modelinin Logistic Regression’a kıyasla daha yüksek doğruluk, daha yüksek AUC skoru ve daha düşük hata oranına sahip olduğu, bu nedenle kredi risk tahmini için daha uygun olduğu sonucuna varılmıştır
 
