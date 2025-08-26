@@ -23,8 +23,8 @@ Kredi riski analizi, potansiyel borçluların temerrüde düşme olasılığın�
 - [Model Değerlendirme](#-model-değerlendirme)
 - [Sonuçlar ve Yorumlar](#-sonuçlar-ve-yorumlar)
 - [Kullanılan Teknolojiler](#-kullanılan-teknolojiler)
-- [Sonraki Adımlar & Geliştirmeler](#-sonraki-adımlar-ve-geliştirmeler)
-- [Soru / İletişim](#-soru-i̇letişim)
+- [Sonraki Adımlar & Geliştirmeler](#-sonraki-adımlar--geliştirmeler)
+- [Soru / İletişim](#-soru--iletişim)
 
 ---
 
