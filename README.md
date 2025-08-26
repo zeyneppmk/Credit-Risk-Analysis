@@ -674,6 +674,7 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 ## 📝 Sonuçlar ve Yorumlar
 
 -**LightGBM:** En yüksek doğruluk (Accuracy: %93.19), precision (%96.65), ve F1-Score (%94.29) değerlerine ulaşmıştır. Aynı zamanda modelin ROC eğrisi altında kalan alan (AUC: 0.94) oldukça yüksektir, bu da sınıflandırma başarısının güçlü olduğunu göstermektedir.
+
 -**Logistic Regression:** Diğer modellere kıyasla en düşük performansı sergilemiştir. Özellikle recall (%44.45) ve F1-Score (%55.02) değerlerinin düşük olması, bu modelin sınıf dengesizliğinden etkilenme potansiyelini ortaya koymaktadır.
 
 💡 LightGBM modelinin Logistic Regression’a kıyasla daha yüksek doğruluk, daha yüksek AUC skoru ve daha düşük hata oranına sahip olduğu, bu nedenle kredi risk tahmini için daha uygun olduğu sonucuna varılmıştır
@@ -703,14 +704,6 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 - Modelin bir **REST API** olarak canlı ortama taşınması.  
 - Daha geniş veri setleriyle test edilmesi.  
 
----
-
-**CREDIT RISK ANALYSIS** – Makine Öğrenmesi ile Kredi Riski Tahmini  
-
-![GitHub stars](https://img.shields.io/github/stars/zeyneppmk/Credit-Risk-Analysis?style=social) 
-![GitHub forks](https://img.shields.io/github/forks/zeyneppmk/Credit-Risk-Analysis?style=social) 
-
-*Finansal veriler üzerinde istatistiksel analiz ve güçlü ML modelleri (Logistic Regression, LightGBM) kullanılarak kredi riski tahmini yapılmıştır.*  
 ---
 
 ⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
