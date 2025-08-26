@@ -692,20 +692,14 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 
 ---
 
-## 🚀 Kurulum ve Çalıştırma
-1. Depoyu klonlayın:
-   ```bash
-   git clone https://github.com/kullanici/kredi-risk-analizi.git
-   cd kredi-risk-analizi
-
-
-
 ## 🚀 Sonraki Adımlar & Geliştirmeler
 - **XGBoost** ve **CatBoost** gibi diğer boosting algoritmaları ile karşılaştırma.  
 - Yeni değişkenler türeterek **feature engineering** geliştirme.  
 - Modelin bir **REST API** olarak canlı ortama taşınması.  
 - Daha geniş veri setleriyle test edilmesi.  
 
----
+## ❓ Soru / İletişim
+
+Herhangi bir sorunuz varsa lütfen [GitHub Issues](https://github.com/zeyneppmk/Credit-Risk-Analysis/issues) bölümünden yeni bir issue açabilirsiniz.
 
 ⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
