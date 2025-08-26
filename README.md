@@ -465,11 +465,12 @@ sns.countplot(data=df2, x='loan_status', hue='loan_grade', ax=ax[1]).set_title("
 
 
 ## 🤖 Modelleme
-Kullanılan algoritmalar:
-- Logistic Regression
-- Random Forest
-- LightGBM
-- XGBoost
+
+Kredi temerrüt tahmini için iki farklı model kullanıldı:
+
+- 📌 Logistic Regression: Basit ve yorumlanabilir bir doğrusal sınıflandırma modeli. Özellikle ikili sınıflandırma (loan_status) problemlerinde temel bir karşılaştırma noktası sunar.
+
+- 📌 LightGBM (Light Gradient Boosting Machine): Ağaç tabanlı, hızlı ve güçlü bir boosting algoritması. Büyük veri setlerinde yüksek doğruluk ve hız sağlar.
 
 Modelleme adımları:
 1. Eğitim/Test veri seti ayrımı (%80 - %20)
@@ -478,20 +479,187 @@ Modelleme adımları:
 
 ---
 
+###1️⃣ Veri Bölme###
+- 🎯 loan_status hedef değişken, diğer sütunlar özellik olarak alındı.
+
+- 📊 Veri %80 eğitim – %20 test olacak şekilde ayrıldı.
+
+- ⚖️ stratify=y → Sınıflar (temerrüt / temerrüt değil) eğitim ve test setinde aynı dağılımı korudu.
+- 
+```python
+X = df.drop('loan_status', axis=1)
+y = df['loan_status']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y,
+                                                    test_size=0.2,
+                                                    random_state=0,
+                                                    stratify=y,
+                                                    shuffle=True)
+
+```
+
+---
+
+###2️⃣ Modellerin Tanımlanması####
+
+- Logistic Regression ve LightGBM modelleri tanımlandı.
+
+```python
+models = {
+    'Logistic Regression': LogisticRegression(max_iter=1000, random_state=42),
+    'LightGBM': lgb.LGBMClassifier(random_state=0)
+}
+```
+
+---
+
+###3️⃣ Cross-Validation (StratifiedKFold)######
+
+```python
+cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
+
+```
+
+###4️⃣ Eğitim ve Değerlendirme###
+
+Her model için:
+
+✅ CV Accuracy Mean: 5 katlı doğrulama ortalama doğruluğu
+
+✅ Test Accuracy: Test setinde genel doğruluk
+
+✅ Precision: Doğru tahmin edilen pozitiflerin oranı
+
+✅ Recall: Gerçek pozitifleri yakalama oranı
+
+✅ F1-Score: Precision ve Recall’un dengesi
+
+✅ ROC AUC: Modelin sınıfları ayırma gücü
+
+📌 Sonuçlar hem test seti hem de çapraz doğrulama üzerinden raporlandı.
+
+```python
+# 4. Modelleri eğitme ve değerlendirme
+for model_name, model in models.items():
+    print(f"Training and evaluating {model_name}...")
+
+    # Cross-validation ile doğruluk skoru hesaplama
+    cv_scores = []
+    for train_idx, val_idx in cv.split(X_train, y_train):
+        X_train_cv, X_val_cv = X_train.iloc[train_idx], X_train.iloc[val_idx]
+        y_train_cv, y_val_cv = y_train.iloc[train_idx], y_train.iloc[val_idx]
+
+        model.fit(X_train_cv, y_train_cv)
+        y_pred_cv = model.predict(X_val_cv)
+
+        # Cross-validation doğruluk
+        cv_scores.append(accuracy_score(y_val_cv, y_pred_cv))
+
+    mean_cv_accuracy = np.mean(cv_scores)
+
+    # Modeli test setiyle değerlendirme
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+
+    # Test seti için doğruluk metriklerini hesaplama
+    accuracy = accuracy_score(y_test, y_pred)
+    precision = precision_score(y_test, y_pred)
+    recall = recall_score(y_test, y_pred)
+    f1 = f1_score(y_test, y_pred)
+    roc_auc = roc_auc_score(y_test, model.predict_proba(X_test)[:, 1])  # ROC AUC score
+
+    # Sonuçları saklama
+    model_results[model_name] = {
+        'CV Accuracy Mean': mean_cv_accuracy,
+        'Test Accuracy': accuracy,
+        'Precision': precision,
+        'Recall': recall,
+        'F1-Score': f1,
+        'ROC AUC': roc_auc
+    }
+
+```
+
+---
+
+
 ## 📈 Model Değerlendirme
-Kullanılan metrikler:
+✅Kullanılan metrikler:
 - Accuracy
 - Precision
 - Recall
 - F1-Score
 - ROC-AUC
 
-Görselleştirmeler:
+🧩Görselleştirmeler:
 - Karışıklık Matrisi
 - ROC Eğrileri
 - Özellik Önem Skorları (Feature Importance)
 
+### Logistic Regression için Performans Metrikleri (Test Seti)
+
+Çapraz doğrulama aşamasında elde edilen metrikler, modelin genelleme performansını ortaya koymaktadır. Ortalama sonuçlar şu şekildedir:
+
+- **Doğruluk Skoru (Accuracy): 0.8420**
+  
+Accuracy, modelin doğru sınıflandırdığı örneklerin toplam örnek sayısına oranıdır. Modelin doğru tahmin yapma oranı oldukça yüksek olup, genel performansın tatmin edici olduğunu göstermektedir.
+
+- **Kesinlik (Precision): 0.7217**
+  
+Precision, modelin pozitif olarak tahmin ettiği örneklerin gerçekten pozitif olma oranıdır. Model, pozitif sınıf (1) için yaptığı tahminlerde orta düzeyde bir isabet oranına sahiptir.
+
+- **Duyarlılık (Recall): 0.4445**
+  
+Duyarlılık metriği, modelin pozitif sınıfları tespit etmede bazı zorluklarla karşılaştığını göstermektedir. Yanlış negatif tahminlerin oranı bu metriği olumsuz etkileyen bir faktör olarak değerlendirilebilir.
+
+- **F1 Skoru: 0.5502**
+  
+F1 skoru, precision ve recall arasındaki dengeyi yansıtmaktadır. Bu metrik, modelin genel başarımını dengeli bir şekilde değerlendirmektedir. Fakat bu modelde düşük çıkmıştır.
+
 ---
+
+### LightGBM Classification için Performans Metrikleri (Test Seti)
+
+Çapraz doğrulama aşamasında elde edilen metrikler, modelin genelleme performansını ortaya koymaktadır. Ortalama sonuçlar şu şekildedir:
+
+- **Doğruluk Skoru (Accuracy): 0.9319**
+  
+Accuracy, modelin doğru sınıflandırdığı örneklerin toplam örnek sayısına oranıdır. Modelin doğru tahmin yapma oranı oldukça yüksek olup, genel performansın tatmin edici olduğunu göstermektedir. 
+
+-**Kesinlik (Precision): 0.9665**
+
+Precision, modelin pozitif olarak tahmin ettiği örneklerin gerçekten pozitif olma oranıdır. Model, pozitif sınıf (1) için yaptığı tahminlerde yüksek bir isabet oranına sahiptir. Yanlış pozitif tahminlerin oranının düşük olması, modelin güvenilirliğini artırmaktadır. 
+
+-**Duyarlılık (Recall): 0.8221**
+
+Duyarlılık metriği, modelin pozitif sınıfı doğru tespit etme oranını ifade etmektedir. Ve bu modelde yüksek çıkmıştır.
+
+-**F1 Skoru: 0.9429**
+
+F1 skoru, precision ve recall arasındaki dengeyi yansıtmaktadır. Bu metrik, modelin genel başarımını dengeli bir şekilde değerlendirmektedir.
+
+
+---
+### ROC Eğrisi ve AUC Analizi
+
+- **LightGBM (AUC = 0.94):**
+LightGBM modeli, eğrisiyle daha geniş bir alan kapladığı için daha yüksek bir AUC değerine sahiptir.
+Bu, modelin sınıflandırma performansının oldukça iyi olduğunu ve pozitif sınıfı negatif sınıftan ayırt etmede başarılı olduğunu gösterir.
+-**Logistic Regression (AUC = 0.84):**
+Lojistik regresyonun AUC değeri LightGBM'e göre daha düşüktür.
+Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili değildir ancak yine de iyi bir performans sergilemektedir.
+
+<img width="780" height="588" alt="image" src="https://github.com/user-attachments/assets/ec0d66a1-a34f-4bff-ab02-e99ee0cd3511" />
+
+<img width="995" height="385" alt="image" src="https://github.com/user-attachments/assets/ea77e443-65dc-4c8e-a89f-11f066e3053e" />
+
+---
+
+
+
+
+
+
 
 ## 📝 Sonuçlar ve Yorumlar
 - En iyi performansı **LightGBM** modeli verdi.  
