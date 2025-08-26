@@ -371,11 +371,11 @@ print(loan_status_correlation)
 ```
 <img width="1241" height="310" alt="image" src="https://github.com/user-attachments/assets/20fb1393-6741-4c63-8212-478aae65493c" />
 
-Bu çıktıyı yorumlarken, her bir özellik ile **loan_status** (kredi durumu) arasındaki ilişkiyi inceleyebiliriz. Korelasyon değeri, -1 ile +1 arasında değişir ve aşağıdaki şekilde yorumlanır:
+🔗 Bu çıktıyı yorumlarken, her bir özellik ile **loan_status** (kredi durumu) arasındaki ilişkiyi inceleyebiliriz. Korelasyon değeri, -1 ile +1 arasında değişir ve aşağıdaki şekilde yorumlanır:
 
-- **1.0**: Mükemmel pozitif ilişki
-- **-1.0**: Mükemmel negatif ilişki
-- **0.0**: Hiçbir ilişki yok
+- ✅ **1.0**: Mükemmel pozitif ilişki
+- ❌ **-1.0**: Mükemmel negatif ilişki
+- ⚪ **0.0**: Hiçbir ilişki yok
 
 ##### **loan_status ile diğer değişkenler arasındaki korelasyonlar:**
 
@@ -414,42 +414,53 @@ Bu çıktıyı yorumlarken, her bir özellik ile **loan_status** (kredi durumu) 
 
 ---
 
+📌 Grafik 1 – loan_status & loan_percent_income : Bu grafik, kredi durumunun (loan_status) farklı gelir oranları (loan_percent_income) ile nasıl dağıldığını gösteriyor.
+
+Amaç: Gelirinin ne kadarını kredi ödemesine ayıran kişilerin, krediyi geri ödeyip ödememe durumunu gözlemlemek.
+
+📌Grafik 2 – loan_status & loan_int_rate : Bu grafik, kredi durumunun (loan_status) farklı faiz oranları (loan_int_rate) ile ilişkisini gösteriyor.
+
+Amaç: Faiz oranı yükseldikçe krediyi ödeyememe ihtimali artıyor mu sorusuna cevap aramak.
+```python
+# loan_status ile aralarındaki ilişki güçlü olan sütunlar
+fig, ax = plt.subplots(1,2,figsize=(15,5))
+sns.countplot(data=df2, x='loan_status', hue="loan_percent_income", ax=ax[0]).set_title("Grafik 1");
+sns.countplot(data=df2, x='loan_status', hue='loan_int_rate', ax=ax[1]).set_title("Grafik 2");
+```
+<img width="1407" height="507" alt="image" src="https://github.com/user-attachments/assets/85f8e5ef-01fb-457e-bcb2-8c525a1aab18" />
 
 ---
+
+📌Boxplot 2 – loan_intent & loan_amnt : Bu boxplot, farklı kredi amaçları (loan_intent) için kullanılan kredi miktarlarının (loan_amnt) dağılımını gösteriyor.
+
+Amaç: Hangi kredi türlerinde daha yüksek tutarlar çekildiğini ve aykırı değerleri (outlier) gözlemlemek.
+
 ```python
-# Bağımsız ve bağımlı değişkenler
-X = df.drop(columns=['loan_status'])
-y = df['loan_status']
-
-# Modeli tanımlama
-logreg_model = LogisticRegression(random_state=42, max_iter=1000)
-
-# Modeli eğitme
-logreg_model.fit(X, y)
-
-# Özelliklerin katsayılarını alma
-importance_df = pd.DataFrame({
-    'Feature': X.columns,
-    'Importance': abs(logreg_model.coef_[0])  # Katsayıların mutlak değerini alıyoruz
-})
-
-# Görselleştirme
-plt.figure(figsize=(10, 6))
-sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis')
-plt.title('Feature Importance (Logistic Regression)')
-plt.xlabel('Importance Score')
-plt.ylabel('Features')
-plt.show()
+plt.figure(figsize=(12,6))
+sns.boxplot(x='loan_intent', y='loan_amnt', data=df2)
+plt.xticks(rotation=30)
+plt.title('Boxplot 2')
 ```
-<img width="1193" height="588" alt="image" src="https://github.com/user-attachments/assets/334c6650-8368-46c8-95b0-3f029e43bb6f" />
+<img width="1169" height="692" alt="image" src="https://github.com/user-attachments/assets/52ef40e8-ce18-4f40-83e6-3c5e8a23d730" />
 
+---
 
+📌Grafik 3 – loan_status & person_home_ownership : Bu grafik, kredi durumunu (loan_status) kişilerin ev sahipliği durumuna (person_home_ownership) göre karşılaştırıyor.
 
+Amaç: Ev sahibi, kiracı veya ipotekli ev sahibi olmanın kredi ödeme davranışına etkisini görmek.
 
+📌 Grafik 4 – loan_status & loan_grade : Bu grafik, kredi durumunu (loan_status) verilen kredi derecesine (loan_grade) göre gösteriyor.
 
+Amaç: Düşük kredi derecesine sahip kişilerin ödemede daha çok sorun yaşayıp yaşamadığını incelemek.
 
+```python
+fig, ax = plt.subplots(1,2,figsize=(15,5))
+sns.countplot(data=df2, x='loan_status', hue='person_home_ownership', ax=ax[0]).set_title("Grafik 3");
+sns.countplot(data=df2, x='loan_status', hue='loan_grade', ax=ax[1]).set_title("Grafik 4");
+```
+<img width="1419" height="507" alt="image" src="https://github.com/user-attachments/assets/653c9853-38c3-4610-bfa0-5cd0fdaa491b" />
 
-
+---
 
 
 
