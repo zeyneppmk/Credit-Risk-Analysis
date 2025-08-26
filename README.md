@@ -205,7 +205,7 @@ print(f"duplicate(yinelenen) satirlari kaldirdiktan sonra verinin sekli: {df.sha
 
 📌Bu projede aykırı değerler aşağıdaki yöntemlerle kontrol edilmiştir ⬇️
 
-### 🔎 Frekans Analizi ile Aykırı Değer Tespiti 
+#### 🔎 Frekans Analizi ile Aykırı Değer Tespiti 
 
 - 📌 Sayısal değişkenlerde (ör. `person_age`, `person_emp_length`) **value_counts()** ile dağılım incelenmiştir.  
 - 🔍 Böylece yaş veya çalışma süresi gibi değişkenlerde **beklenmeyen uç değerler** kolayca fark edilmiştir.  
@@ -222,7 +222,7 @@ df['loan_int_rate'].value_counts()
 ---
 
 
-### 45 Kategorik Değişkenlerin Kodlanması (Label Encoding / Binary Encoding)
+### 5- Kategorik Değişkenlerin Kodlanması (Label Encoding / Binary Encoding)
 📌 Veri setinde bazı sütunlar string türündedir(örn. "Ev Sahibi", "Kiracı").Öncelikle veri setinde bu sütunların tespit edilmesi gerekmedktedir.
 
 ```python
@@ -344,7 +344,6 @@ Amacı, veriyi **daha iyi anlamak**, **örüntüleri görmek**, **anormallikleri
 - Korelasyon Matrisinin Hesaplanması
 
 ```python
-# Binary Encoding işlemi
 # Korelasyon matrisi
 corr_matrix = df.corr()
 
@@ -361,6 +360,98 @@ plt.show()
 **person_age**, dolaylı bir etkiye sahiptir. Yaş tek başına kredi riski açısından yeterli bilgi sunmayabilir; ancak kredi geçmişi uzunluğu bireyin ödeme geçmişi hakkında doğrudan bilgi sağlar.
 
 ---
+```python
+# Korelasyon matrisini hesaplama
+correlation_matrix = df.corr()
+
+# loan_status ile olan korelasyonu görmek için
+loan_status_correlation = correlation_matrix['loan_status'].sort_values(ascending=False)
+
+print(loan_status_correlation)
+```
+<img width="1241" height="310" alt="image" src="https://github.com/user-attachments/assets/20fb1393-6741-4c63-8212-478aae65493c" />
+
+Bu çıktıyı yorumlarken, her bir özellik ile **loan_status** (kredi durumu) arasındaki ilişkiyi inceleyebiliriz. Korelasyon değeri, -1 ile +1 arasında değişir ve aşağıdaki şekilde yorumlanır:
+
+- **1.0**: Mükemmel pozitif ilişki
+- **-1.0**: Mükemmel negatif ilişki
+- **0.0**: Hiçbir ilişki yok
+
+##### **loan_status ile diğer değişkenler arasındaki korelasyonlar:**
+
+1. **loan_status: 1.000000**
+   - **loan_status** ile kendi arasında mükemmel bir pozitif korelasyon vardır, çünkü bu değişken kendisini ifade eder.
+
+2. **loan_percent_income: 0.379359**
+   - **loan_percent_income** (kredi miktarının gelirle oranı) ile **loan_status** arasında orta düzeyde pozitif bir korelasyon vardır. Yani, gelirine oranla daha fazla kredi talep eden kişilerin temerrüte düşme olasılığı daha yüksek olabilir.
+
+3. **loan_int_rate: 0.335788**
+   - **loan_int_rate** (kredi faiz oranı) ile **loan_status** arasında da pozitif bir korelasyon vardır. Yüksek faiz oranlarına sahip kredilerin temerrüde düşme olasılığı daha yüksek olabilir.
+
+4. **loan_amnt: 0.106885**
+   - **loan_amnt** (kredi tutarı) ile **loan_status** arasında düşük düzeyde pozitif bir korelasyon vardır. Yani, kredi tutarı arttıkça temerrüte düşme olasılığı biraz daha artabilir, ancak bu ilişki çok güçlü değildir.
+
+5. **loan_intent_0: 0.060206**, **loan_intent_1: 0.036874**, **loan_intent_2: -0.082012**
+   - **loan_intent** kategorileri (kredi niyeti) ile **loan_status** arasında zayıf ilişkiler vardır. Kredi niyetinin temerrüt durumu üzerindeki etkisi çok belirgin değildir.
+
+6. **cb_person_cred_hist_length: -0.014571**
+   - **cb_person_cred_hist_length** (kredi geçmişi uzunluğu) ile **loan_status** arasında negatif bir ilişki vardır, ancak bu ilişki çok zayıftır. Kredi geçmişi uzun olan kişilerin temerrüte düşme olasılığı çok belirgin şekilde düşük değildir.
+
+7. **person_emp_length: -0.085013**
+   - **person_emp_length** (çalışma süresi) ile **loan_status** arasında negatif bir korelasyon vardır. Yani, daha uzun süre çalışan kişilerin temerrüte düşme olasılığı biraz daha düşük olabilir.
+
+8. **person_income: -0.172207**
+   - **person_income** (kişinin yıllık geliri) ile **loan_status** arasında negatif bir ilişki vardır. Yüksek geliri olan kişilerin temerrüte düşme olasılığı daha düşük olabilir.
+
+9. **cb_person_default_on_file: -0.180412**
+   - **cb_person_default_on_file** (kredi geçmişinde temerrüt olup olmadığı) ile **loan_status** arasında negatif bir ilişki vardır. Yani, kredi geçmişinde temerrüt bulunan kişilerin, kredi temerrüt durumunda olmama olasılığı daha yüksek olabilir.
+
+10. **person_home_ownership: -0.232697**
+    - **person_home_ownership** (ev sahipliği durumu) ile **loan_status** arasında orta düzeyde negatif bir korelasyon vardır. Ev sahipliği durumu, temerrüt durumuyla negatif bir ilişki gösteriyor, yani ev sahibi olan kişilerin temerrüde düşme olasılığı daha düşük olabilir.
+
+11. **loan_grade: -0.376282**
+    - **loan_grade** (kredi notu) ile **loan_status** arasında orta düzeyde negatif bir korelasyon vardır. Kredi notu arttıkça, temerrüde düşme olasılığı azalmaktadır. Bu, genellikle yüksek kredi notuna sahip kişilerin daha iyi ödeme geçmişine sahip olmaları ile ilgilidir.
+
+---
+
+
+---
+```python
+# Bağımsız ve bağımlı değişkenler
+X = df.drop(columns=['loan_status'])
+y = df['loan_status']
+
+# Modeli tanımlama
+logreg_model = LogisticRegression(random_state=42, max_iter=1000)
+
+# Modeli eğitme
+logreg_model.fit(X, y)
+
+# Özelliklerin katsayılarını alma
+importance_df = pd.DataFrame({
+    'Feature': X.columns,
+    'Importance': abs(logreg_model.coef_[0])  # Katsayıların mutlak değerini alıyoruz
+})
+
+# Görselleştirme
+plt.figure(figsize=(10, 6))
+sns.barplot(x='Importance', y='Feature', data=importance_df, palette='viridis')
+plt.title('Feature Importance (Logistic Regression)')
+plt.xlabel('Importance Score')
+plt.ylabel('Features')
+plt.show()
+```
+<img width="1193" height="588" alt="image" src="https://github.com/user-attachments/assets/334c6650-8368-46c8-95b0-3f029e43bb6f" />
+
+
+
+
+
+
+
+
+
+
 
 ## 🤖 Modelleme
 Kullanılan algoritmalar:
