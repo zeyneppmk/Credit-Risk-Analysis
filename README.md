@@ -414,13 +414,6 @@ print(loan_status_correlation)
 
 ---
 
-📌 Grafik 1 – loan_status & loan_percent_income : Bu grafik, kredi durumunun (loan_status) farklı gelir oranları (loan_percent_income) ile nasıl dağıldığını gösteriyor.
-
-Amaç: Gelirinin ne kadarını kredi ödemesine ayıran kişilerin, krediyi geri ödeyip ödememe durumunu gözlemlemek.
-
-📌Grafik 2 – loan_status & loan_int_rate : Bu grafik, kredi durumunun (loan_status) farklı faiz oranları (loan_int_rate) ile ilişkisini gösteriyor.
-
-Amaç: Faiz oranı yükseldikçe krediyi ödeyememe ihtimali artıyor mu sorusuna cevap aramak.
 ```python
 # loan_status ile aralarındaki ilişki güçlü olan sütunlar
 fig, ax = plt.subplots(1,2,figsize=(15,5))
@@ -429,11 +422,15 @@ sns.countplot(data=df2, x='loan_status', hue='loan_int_rate', ax=ax[1]).set_titl
 ```
 <img width="1407" height="507" alt="image" src="https://github.com/user-attachments/assets/85f8e5ef-01fb-457e-bcb2-8c525a1aab18" />
 
+📌 Grafik 1 – loan_status & loan_percent_income : Bu grafik, kredi durumunun (loan_status) farklı gelir oranları (loan_percent_income) ile nasıl dağıldığını gösteriyor.
+
+Amaç: Gelirinin ne kadarını kredi ödemesine ayıran kişilerin, krediyi geri ödeyip ödememe durumunu gözlemlemek.
+
+📌Grafik 2 – loan_status & loan_int_rate : Bu grafik, kredi durumunun (loan_status) farklı faiz oranları (loan_int_rate) ile ilişkisini gösteriyor.
+
+Amaç: Faiz oranı yükseldikçe krediyi ödeyememe ihtimali artıyor mu sorusuna cevap aramak.
+
 ---
-
-📌Boxplot 2 – loan_intent & loan_amnt : Bu boxplot, farklı kredi amaçları (loan_intent) için kullanılan kredi miktarlarının (loan_amnt) dağılımını gösteriyor.
-
-Amaç: Hangi kredi türlerinde daha yüksek tutarlar çekildiğini ve aykırı değerleri (outlier) gözlemlemek.
 
 ```python
 plt.figure(figsize=(12,6))
@@ -443,15 +440,11 @@ plt.title('Boxplot 2')
 ```
 <img width="1169" height="692" alt="image" src="https://github.com/user-attachments/assets/52ef40e8-ce18-4f40-83e6-3c5e8a23d730" />
 
+📌Boxplot 2 – loan_intent & loan_amnt : Bu boxplot, farklı kredi amaçları (loan_intent) için kullanılan kredi miktarlarının (loan_amnt) dağılımını gösteriyor.
+
+Amaç: Hangi kredi türlerinde daha yüksek tutarlar çekildiğini ve aykırı değerleri (outlier) gözlemlemek.
+
 ---
-
-📌Grafik 3 – loan_status & person_home_ownership : Bu grafik, kredi durumunu (loan_status) kişilerin ev sahipliği durumuna (person_home_ownership) göre karşılaştırıyor.
-
-Amaç: Ev sahibi, kiracı veya ipotekli ev sahibi olmanın kredi ödeme davranışına etkisini görmek.
-
-📌 Grafik 4 – loan_status & loan_grade : Bu grafik, kredi durumunu (loan_status) verilen kredi derecesine (loan_grade) göre gösteriyor.
-
-Amaç: Düşük kredi derecesine sahip kişilerin ödemede daha çok sorun yaşayıp yaşamadığını incelemek.
 
 ```python
 fig, ax = plt.subplots(1,2,figsize=(15,5))
@@ -460,6 +453,14 @@ sns.countplot(data=df2, x='loan_status', hue='loan_grade', ax=ax[1]).set_title("
 ```
 <img width="1419" height="507" alt="image" src="https://github.com/user-attachments/assets/653c9853-38c3-4610-bfa0-5cd0fdaa491b" />
 
+
+📌Grafik 3 – loan_status & person_home_ownership : Bu grafik, kredi durumunu (loan_status) kişilerin ev sahipliği durumuna (person_home_ownership) göre karşılaştırıyor.
+
+Amaç: Ev sahibi, kiracı veya ipotekli ev sahibi olmanın kredi ödeme davranışına etkisini görmek.
+
+📌 Grafik 4 – loan_status & loan_grade : Bu grafik, kredi durumunu (loan_status) verilen kredi derecesine (loan_grade) göre gösteriyor.
+
+Amaç: Düşük kredi derecesine sahip kişilerin ödemede daha çok sorun yaşayıp yaşamadığını incelemek.
 ---
 
 
@@ -479,7 +480,7 @@ Modelleme adımları:
 
 ---
 
-### 1️⃣ Veri Bölme###
+### 1️⃣ Veri Bölme
 - 🎯 loan_status hedef değişken, diğer sütunlar özellik olarak alındı.
 
 - 📊 Veri %80 eğitim – %20 test olacak şekilde ayrıldı.
@@ -500,7 +501,7 @@ X_train, X_test, y_train, y_test = train_test_split(X, y,
 
 ---
 
-### 2️⃣ Modellerin Tanımlanması####
+### 2️⃣ Modellerin Tanımlanması
 
 - Logistic Regression ve LightGBM modelleri tanımlandı.
 
@@ -513,14 +514,14 @@ models = {
 
 ---
 
-### 3️⃣ Cross-Validation (StratifiedKFold)######
+### 3️⃣ Cross-Validation (StratifiedKFold)
 
 ```python
 cv = StratifiedKFold(n_splits=5, shuffle=True, random_state=0)
 
 ```
 
-### 4️⃣ Eğitim ve Değerlendirme###
+### 4️⃣ Eğitim ve Değerlendirme
 
 Her model için:
 
@@ -582,7 +583,6 @@ for model_name, model in models.items():
 
 ---
 
-
 ## 📈 Model Değerlendirme
 ✅Kullanılan metrikler:
 - Accuracy
@@ -592,11 +592,11 @@ for model_name, model in models.items():
 - ROC-AUC
 
 🧩Görselleştirmeler:
-- Karışıklık Matrisi
+- (Confusion Matrix) Karışıklık Matrisi
 - ROC Eğrileri
 - Özellik Önem Skorları (Feature Importance)
 
-### Logistic Regression için Performans Metrikleri (Test Seti)
+### Logistic Regresyon için Performans Metrikleri (Test Seti)
 
 Çapraz doğrulama aşamasında elde edilen metrikler, modelin genelleme performansını ortaya koymaktadır. Ortalama sonuçlar şu şekildedir:
 
@@ -649,22 +649,34 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 <img width="780" height="588" alt="image" src="https://github.com/user-attachments/assets/ec0d66a1-a34f-4bff-ab02-e99ee0cd3511" />
 
 ---
+### Logistic Regresyon için Karışıklık Matrisi(Confusion Matrix) Analizi
 
-<img width="995" height="385" alt="image" src="https://github.com/user-attachments/assets/ea77e443-65dc-4c8e-a89f-11f066e3053e" />
+- **TP (Doğru Pozitif):** Modelin "temerrüt" olarak tahmin ettiği ve gerçekte de temerrüt olan örnekler. 573 temerrüt değeri bu modeldin performans düşüklüğünü göstermektedir.
+- **TN (Doğru Negatif):** Modelin "ödenmiş" olarak tahmin ettiği ve gerçekte de ödenmiş olan örnekler. Modelde 4352 değerine karşılık gelmektedir. 
+- **FP (Yanlış Pozitif):** Modelin "temerrüt" olarak tahmin ettiği, ancak gerçekte ödenmiş olan örnekler. Bu modelde 221 gibi çok az bir değere karşılık gelmektedir. 
+- **FN (Yanlış Negatif):** Modelin "ödenmiş" olarak tahmin ettiği, ancak gerçekte temerrüt olan örnekler. Modelde 716 ya denk gelmektedir. Bu değer test verisine oranladığımızda yüksek çıkmıştır bu da modelin iyi çalışmadığını gösterir.
+
+<img width="615" height="434" alt="image" src="https://github.com/user-attachments/assets/d79c6644-8e45-403f-a2bd-d28ee884d23c" />
 
 ---
 
+### LightGBM Classification için Karışıklık Matrisi(Confusion Matrix) Analizi
 
+-**TP (Doğru Pozitif):** Modelin "temerrüt" olarak tahmin ettiği ve gerçekte de temerrüt olan örnekler. 922 Temerrüt değeri veride az olduğu için bu şekilde çıkmıştır yani aslında yüksek bir performans göstermektedir.
+-**TN (Doğru Negatif):** Modelin "ödenmiş" olarak tahmin ettiği ve gerçekte de ödenmiş olan örnekler. Modelde 4541 değerine karşılık gelmektedir. Toplam test verisine oranladığımızda yüksek bir performans elde edildiği gözlemlenir.
+-**FP (Yanlış Pozitif):** Modelin "temerrüt" olarak tahmin ettiği, ancak gerçekte ödenmiş olan örnekler. Bu modelde 32 gibi çok az bir değere karşılık gelmektedir. Bu modelin performansının iyi olduğunu gösterir.
+-**FN (Yanlış Negatif):** Modelin "ödenmiş" olarak tahmin ettiği, ancak gerçekte temerrüt olan örnekler. Modelde 367 ye denk gelmektedir.
 
+<img width="511" height="424" alt="image" src="https://github.com/user-attachments/assets/e74bd41e-bca4-4c74-8c28-3845e01644cd" />
 
-
-
+---
 
 ## 📝 Sonuçlar ve Yorumlar
-- En iyi performansı **LightGBM** modeli verdi.  
-- ROC-AUC skoru: **0.94**
-- En önemli özellikler: **Credit_History**, **Income**, **Loan_Amount**
-- Bu sonuçlar, kredi başvurularının risk sınıflandırmasında başarılı bir tahminleme yapılabileceğini gösteriyor.
+
+-**LightGBM:** En yüksek doğruluk (Accuracy: %93.19), precision (%96.65), ve F1-Score (%94.29) değerlerine ulaşmıştır. Aynı zamanda modelin ROC eğrisi altında kalan alan (AUC: 0.94) oldukça yüksektir, bu da sınıflandırma başarısının güçlü olduğunu göstermektedir.
+-**Logistic Regression:** Diğer modellere kıyasla en düşük performansı sergilemiştir. Özellikle recall (%44.45) ve F1-Score (%55.02) değerlerinin düşük olması, bu modelin sınıf dengesizliğinden etkilenme potansiyelini ortaya koymaktadır.
+
+💡 LightGBM modelinin Logistic Regression’a kıyasla daha yüksek doğruluk, daha yüksek AUC skoru ve daha düşük hata oranına sahip olduğu, bu nedenle kredi risk tahmini için daha uygun olduğu sonucuna varılmıştır
 
 ---
 
@@ -685,175 +697,6 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 
 
 
-# 📊 Credit Risk Analysis – Logistic Regression & LightGBM
-
-Bu proje, kredi başvurularında **müşteri temerrüt riskini** tahmin etmeye yönelik makine öğrenimi tabanlı bir çalışmadır. Çalışmada hem klasik yöntemler (**Logistic Regression**) hem de gelişmiş algoritmalar (**LightGBM**) uygulanarak performansları karşılaştırılmıştır.  
-
-Amaç: Finans kuruluşlarının risk yönetimini geliştirmek, kredi verirken daha doğru karar almasını sağlamaktır.  
-
----
-
-## 🛠 Veri Ön İşleme (Eksik veri, dengesizlik, encoding)
-
-### Eksik Veriler
-Eksik veriler `IterativeImputer` ile dolduruldu. Bu yöntem, çok değişkenli istatistiksel yaklaşımla eksik değerleri tahmin ederek daha güvenilir sonuçlar üretti.  
-
-```python
-from sklearn.experimental import enable_iterative_imputer
-from sklearn.impute import IterativeImputer
-
-imputer = IterativeImputer()
-X_imputed = imputer.fit_transform(X)
-```
-
-📌 Eksik veriler tamamlandıktan sonra dağılımlar tekrar kontrol edilmiştir.  
-
-![Eksik Veri Görselleştirme](img/missing_data.png)
-
----
-
-### Veri Dengesizliği
-Veri setinde “temerrüt” sınıfı dengesizdi. Bu nedenle **SMOTE (Synthetic Minority Oversampling Technique)** uygulanarak veriler dengelendi.  
-
-```python
-from imblearn.over_sampling import SMOTE
-
-sm = SMOTE(random_state=42)
-X_res, y_res = sm.fit_resample(X, y)
-```
-
-![SMOTE Sonrası Dağılım](img/smote_balance.png)
-
----
-
-### Encoding
-Kategorik değişkenler **One-Hot Encoding** yöntemi ile sayısal değerlere dönüştürüldü.  
-
-```python
-from sklearn.preprocessing import OneHotEncoder
-encoder = OneHotEncoder()
-X_encoded = encoder.fit_transform(df[categorical_features])
-```
-
----
-
-## 📈 EDA (Keşifsel Veri Analizi) – Grafikler & Tablolar
-
-### Yaş Dağılımı
-Çoğu başvuran 20–40 yaş aralığındadır.  
-
-```python
-sns.histplot(df["person_age"], bins=30, kde=True)
-```
-![Yaş Dağılımı](img/age_distribution.png)
-
----
-
-### Gelir Dağılımı
-Düşük gelir grubunda temerrüt oranı daha yüksektir.  
-
-```python
-sns.histplot(df["person_income"], bins=40, kde=True)
-```
-![Gelir Dağılımı](img/income_distribution.png)
-
----
-
-### Kredi Notu ve Temerrüt İlişkisi
-Düşük kredi notuna sahip kişilerin temerrüt oranı ciddi şekilde artmaktadır.  
-
-```python
-sns.barplot(x="loan_grade", y="loan_status", data=df)
-```
-![Kredi Notu vs Default](img/loan_grade_default.png)
-
----
-
-### Kredinin Gelire Oranı
-Kredinin gelire oranı yükseldikçe temerrüt ihtimali artmaktadır.  
-
-```python
-sns.scatterplot(x="loan_percent_income", y="loan_status", data=df)
-```
-![Loan Percent Income](img/loan_income_ratio.png)
-
----
-
-## 🤖 Modelleme (Logistic Regression, LightGBM vs.)
-
-### Logistic Regression
-```python
-from sklearn.linear_model import LogisticRegression
-log_model = LogisticRegression()
-log_model.fit(X_train, y_train)
-y_pred_log = log_model.predict(X_test)
-```
-- ROC-AUC: **0.71**  
-- Precision: **0.68**  
-- Recall: **0.65**
-
-![Confusion Matrix – LR](img/cm_logreg.png)
-
----
-
-### LightGBM
-```python
-from lightgbm import LGBMClassifier
-lgbm = LGBMClassifier()
-lgbm.fit(X_train, y_train)
-y_pred_lgbm = lgbm.predict(X_test)
-```
-- ROC-AUC: **0.87**  
-- Precision: **0.82**  
-- Recall: **0.80**
-
-![Confusion Matrix – LGBM](img/cm_lightgbm.png)
-![ROC Curve – LGBM](img/roc_lightgbm.png)
-
----
-
-## ⚖️ Performans Karşılaştırması
-
-| Model                | ROC-AUC | Precision | Recall | F1-Score |
-|----------------------|---------|-----------|--------|----------|
-| Logistic Regression  | 0.71    | 0.68      | 0.65   | 0.66     |
-| LightGBM             | 0.87    | 0.82      | 0.80   | 0.81     |
-
-📌 LightGBM, açık ara daha iyi sonuç vermiştir.
-
----
-
-## 🌟 Öne Çıkan Bulgular & Sonuçlar
-
-- **LightGBM**, Logistic Regression’a göre %15 daha yüksek ROC-AUC değerine ulaşmıştır.  
-- En önemli değişkenler:  
-  - `loan_percent_income` (gelir/kredi oranı)  
-  - `loan_grade` (kredi notu)  
-  - `person_income` (yıllık gelir)  
-- Bu model finans sektöründe risk değerlendirme sistemine entegre edilebilir ve bankaların **temerrüt riskini erken belirlemesine** katkı sağlar.
-
----
-
-## ⚙️ Nasıl Çalıştırılır?
-
-```bash
-# Gerekli kütüphaneleri yükle
-pip install -r requirements.txt
-
-# Notebook'u çalıştır
-jupyter notebook LogisticRegressionandLightGBM.ipynb
-```
-
----
-
-## 🛠 Kullanılan Teknolojiler
-- **Python**: pandas, numpy, scikit-learn, imbalanced-learn  
-- **Modeller**: Logistic Regression, LightGBM  
-- **EDA**: Matplotlib, Seaborn, Missingno  
-- **Değerlendirme**: Confusion Matrix, ROC Curve, Classification Report  
-
----
-
 ## 🚀 Sonraki Adımlar & Geliştirmeler
 - **XGBoost** ve **CatBoost** gibi diğer boosting algoritmaları ile karşılaştırma.  
 - Yeni değişkenler türeterek **feature engineering** geliştirme.  
@@ -862,5 +705,12 @@ jupyter notebook LogisticRegressionandLightGBM.ipynb
 
 ---
 
-👨‍💻 *Bu proje, veri bilimi ve makine öğrenimi alanındaki uzmanlığımı göstermek amacıyla hazırlanmıştır. Hem teknik hem de işlevsel çıktılarıyla dikkat çekmektedir.*
-🧩
+**CREDIT RISK ANALYSIS** – Makine Öğrenmesi ile Kredi Riski Tahmini  
+
+![GitHub stars](https://img.shields.io/github/stars/zeyneppmk/Credit-Risk-Analysis?style=social) 
+![GitHub forks](https://img.shields.io/github/forks/zeyneppmk/Credit-Risk-Analysis?style=social) 
+
+*Finansal veriler üzerinde istatistiksel analiz ve güçlü ML modelleri (Logistic Regression, LightGBM) kullanılarak kredi riski tahmini yapılmıştır.*  
+---
+
+⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
