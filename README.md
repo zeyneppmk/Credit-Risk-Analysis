@@ -16,15 +16,15 @@ Kredi riski analizi, potansiyel borçluların temerrüde düşme olasılığın�
 ## 📂 İçindekiler
 - [Proje Hakkında](#-proje-hakkında)
 - [Veri Seti ve Özellikler](#-veri-seti-ve-özellikler)
+- [Kütüphane Ve Modüller](#-kütüphane-ve-modüller)
 - [Veri Ön İşleme](#-veri-ön-i̇şleme)
 - [Keşifsel Veri Analizi (EDA)](#-keşifsel-veri-analizi-eda)
 - [Modelleme](#-modelleme)
 - [Model Değerlendirme](#-model-değerlendirme)
 - [Sonuçlar ve Yorumlar](#-sonuçlar-ve-yorumlar)
 - [Kullanılan Teknolojiler](#-kullanılan-teknolojiler)
-- [Kurulum ve Çalıştırma](#-kurulum-ve-çalıştırma)
-- [İletişim](#-i̇letişim)
-- [Lisans](#-lisans)
+- [Sonraki Adımlar & Geliştirmeler](#-sonraki-adımlar-ve-geliştirmeler)
+- [Soru / İletişim](#soru-i̇letişim)
 
 ---
 
