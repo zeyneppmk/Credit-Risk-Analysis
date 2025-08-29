@@ -698,8 +698,6 @@ Bu model, pozitif ve negatif sınıfları ayırt etmekte LightGBM kadar etkili d
 - Modelin bir **REST API** olarak canlı ortama taşınması.  
 - Daha geniş veri setleriyle test edilmesi.  
 
-## ❓ Soru / İletişim
 
-Herhangi bir sorunuz varsa  [GitHub Issues](https://github.com/zeyneppmk/Credit-Risk-Analysis/issues) bölümünden yeni bir issue açabilirsiniz.
 
 ⭐ Bu projeyi beğendiyseniz yıldız vermeyi unutmayın!
